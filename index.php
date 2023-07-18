@@ -1,41 +1,8 @@
 <?php
-$hotels = [
-    [
-        'name' => 'Hotel Belvedere',
-        'description' => 'Hotel Belvedere Descrizione',
-        'parking' => true,
-        'vote' => 4,
-        'distance_to_center' => 10.4
-    ],
-    [
-        'name' => 'Hotel Futuro',
-        'description' => 'Hotel Futuro Descrizione',
-        'parking' => true,
-        'vote' => 2,
-        'distance_to_center' => 2
-    ],
-    [
-        'name' => 'Hotel Rivamare',
-        'description' => 'Hotel Rivamare Descrizione',
-        'parking' => false,
-        'vote' => 1,
-        'distance_to_center' => 1
-    ],
-    [
-        'name' => 'Hotel Bellavista',
-        'description' => 'Hotel Bellavista Descrizione',
-        'parking' => false,
-        'vote' => 5,
-        'distance_to_center' => 5.5
-    ],
-    [
-        'name' => 'Hotel Milano',
-        'description' => 'Hotel Milano Descrizione',
-        'parking' => true,
-        'vote' => 2,
-        'distance_to_center' => 50
-    ],
-];
+include './includes/data/hotel.php';
+
+$is_only_parking = $_GET['onlyParking'] ?? 'off';
+var_dump($is_only_parking);
 ?>
 
 <!DOCTYPE html>
@@ -44,55 +11,50 @@ $hotels = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css' integrity='sha512-t4GWSVZO1eC8BM339Xd7Uphw5s17a86tIZIj8qRxhnKub6WoyhnrxeCIMeAqBPgdZGlCcG2PrZjMc+Wr78+5Xg==' crossorigin='anonymous' />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' integrity='sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==' crossorigin='anonymous' />
     <title>Hotels</title>
 </head>
 
 <body>
-    <h1>Hotels</h1>
-    <table>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Parking
-            </th>
-            <th>
-                Vote
-            </th>
-            <th>
-                Distance to center
-            </th>
-        </tr>
-        <?php foreach ($hotels as $hotel) : ?>
+    <div class="container py-5">
+        <h1 class="text-center fw-bold mb-5">HOTEL</h1>
+        <h3>Filters</h3>
+        <form class="mb-5" action="">
+            <div class="input-group fs-4">
+                <input <?php if ($is_only_parking === 'on') echo 'checked' ?> type="checkbox" name="onlyParking" id="onlyParking"><span class="ms-2">Show only hotels with parking</span>
+            </div>
+            <input type="submit" value="SEND!">
+        </form>
+        <table class="table border">
             <tr>
-                <td>
-                    <?= $hotel['name'] ?>
-                </td>
-                <td>
-                    <?= $hotel['description'] ?>
-                </td>
-                <td>
-                    <?php
-                    if ($hotel['parking']) {
-                        echo 'SI';
-                    } else {
-                        echo 'NO';
-                    }
-                    ?>
-                </td>
-                <td>
-                    <?= $hotel['vote'] ?>
-                </td>
-                <td>
-                    <?= $hotel['distance_to_center'] ?>
-                </td>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Parking
+                </th>
+                <th>
+                    Vote
+                </th>
+                <th>
+                    Distance to center
+                </th>
             </tr>
-        <?php endforeach ?>
-    </table>
+            <?php foreach ($hotels as $hotel) : ?>
+                <?php if ($is_only_parking === 'on') : ?>
+                    <?php if ($hotel['parking']) : ?>
+                        <?= include './includes/templates/row.php' ?>
+                    <?php endif ?>
+                <?php else : ?>
+                    <?= include './includes/templates/row.php' ?>
+                <?php endif ?>
+            <?php endforeach ?>
+        </table>
+    </div>
 </body>
 
 </html>
