@@ -48,19 +48,51 @@ $hotels = [
 </head>
 
 <body>
-    <ul>
+    <h1>Hotels</h1>
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Parking
+            </th>
+            <th>
+                Vote
+            </th>
+            <th>
+                Distance to center
+            </th>
+        </tr>
         <?php foreach ($hotels as $hotel) : ?>
-            <li><?= $hotel['name'] ?> | <?= $hotel['description'] ?> |
-                <?php
-                if ($hotel['parking']) {
-                    echo 'SI';
-                } else {
-                    echo 'NO';
-                }
-                ?>
-                | <?= $hotel['vote'] ?> | <?= $hotel['distance_to_center'] ?>
-            <?php endforeach ?>
-    </ul>
+            <tr>
+                <td>
+                    <?= $hotel['name'] ?>
+                </td>
+                <td>
+                    <?= $hotel['description'] ?>
+                </td>
+                <td>
+                    <?php
+                    if ($hotel['parking']) {
+                        echo 'SI';
+                    } else {
+                        echo 'NO';
+                    }
+                    ?>
+                </td>
+                <td>
+                    <?= $hotel['vote'] ?>
+                </td>
+                <td>
+                    <?= $hotel['distance_to_center'] ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+    </table>
 </body>
 
 </html>
