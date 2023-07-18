@@ -2,7 +2,8 @@
 include './includes/data/hotel.php';
 
 $is_only_parking = $_GET['onlyParking'] ?? 'off';
-var_dump($is_only_parking);
+
+$minVote = $_GET['minVote'] ?? '0';
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,12 @@ var_dump($is_only_parking);
             <div class="input-group fs-4">
                 <input <?php if ($is_only_parking === 'on') echo 'checked' ?> type="checkbox" name="onlyParking" id="onlyParking"><span class="ms-2">Show only hotels with parking</span>
             </div>
-            <input type="submit" value="SEND!">
+            <hr>
+            <label class="form-label fs-4" for="minVote">Filter for minimun vote:</label>
+            <div class="input-group w-25">
+                <input class="form-control" type="number" name="minVote" id="minVote" value="<?= $minVote ?>">
+            </div>
+            <input type="submit" class="mt-3" value="SEND!">
         </form>
         <table class="table border">
             <tr>
@@ -45,12 +51,14 @@ var_dump($is_only_parking);
                 </th>
             </tr>
             <?php foreach ($hotels as $hotel) : ?>
-                <?php if ($is_only_parking === 'on') : ?>
-                    <?php if ($hotel['parking']) : ?>
+                <?php if ($hotel['vote'] >= intval($minVote)) : ?>
+                    <?php if ($is_only_parking === 'on') : ?>
+                        <?php if ($hotel['parking']) : ?>
+                            <?= include './includes/templates/row.php' ?>
+                        <?php endif ?>
+                    <?php else : ?>
                         <?= include './includes/templates/row.php' ?>
                     <?php endif ?>
-                <?php else : ?>
-                    <?= include './includes/templates/row.php' ?>
                 <?php endif ?>
             <?php endforeach ?>
         </table>
