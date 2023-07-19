@@ -23,7 +23,7 @@ $minVote = $_GET['minVote'] ?? '0';
         <h3>Filters</h3>
         <form class="mb-5" action="">
             <div class="input-group fs-4">
-                <input <?php if ($is_only_parking === 'on') echo 'checked' ?> type="checkbox" name="onlyParking" id="onlyParking"><span class="ms-2">Show only hotels with parking</span>
+                <input <?php if ($is_only_parking === 'on') echo 'checked' ?> type="checkbox" name="onlyParking" id="onlyParking"><label for="onlyParking" class="ms-2">Show only hotels with parking</label>
             </div>
             <hr>
             <label class="form-label fs-4" for="minVote">Filter for minimun vote:</label>
