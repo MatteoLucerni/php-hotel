@@ -33,34 +33,38 @@ $minVote = $_GET['minVote'] ?? '0';
             <input type="submit" class="mt-3" value="SEND!">
         </form>
         <table class="table border">
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Parking
-                </th>
-                <th>
-                    Vote
-                </th>
-                <th>
-                    Distance to center
-                </th>
-            </tr>
-            <?php foreach ($hotels as $hotel) : ?>
-                <?php if ($hotel['vote'] >= intval($minVote)) : ?>
-                    <?php if ($is_only_parking === 'on') : ?>
-                        <?php if ($hotel['parking']) : ?>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Parking
+                    </th>
+                    <th>
+                        Vote
+                    </th>
+                    <th>
+                        Distance to center
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($hotels as $hotel) : ?>
+                    <?php if ($hotel['vote'] >= intval($minVote)) : ?>
+                        <?php if ($is_only_parking === 'on') : ?>
+                            <?php if ($hotel['parking']) : ?>
+                                <?= include './includes/templates/row.php' ?>
+                            <?php endif ?>
+                        <?php else : ?>
                             <?= include './includes/templates/row.php' ?>
                         <?php endif ?>
-                    <?php else : ?>
-                        <?= include './includes/templates/row.php' ?>
                     <?php endif ?>
-                <?php endif ?>
-            <?php endforeach ?>
+                <?php endforeach ?>
+            </tbody>
         </table>
     </div>
 </body>

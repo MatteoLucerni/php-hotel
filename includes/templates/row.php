@@ -18,6 +18,6 @@
         <?= $hotel['vote'] ?>
     </td>
     <td>
-        <?= $hotel['distance_to_center'] ?>
+        <?= $hotel['distance_to_center'] km ?>
     </td>
 </tr>
